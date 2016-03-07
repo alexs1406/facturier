@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+    
+            {% for r in tabel %}
+            <tr>
+                {% for cell in r %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+
+    </table>
+        
+{% endblock %}     

@@ -2,6 +2,12 @@ yaml_route_raspuns:
     path:     /raspuns/htmlmvc
     defaults: { _controller: AppBundle:Default:raspunsHtmlMvc }
     
+yaml_route_2_param:
+    path:     /params/{p1}/{p2}
+    defaults: { _controller: AppBundle:Global:paramsEx,p2: Radu }
+    requirements:
+        p1: \d+
+    
 yaml_route_flasf:
     path:     /flash/{numar}
     defaults: { _controller: AppBundle:Default:flashMsgEx }
