@@ -31,6 +31,8 @@ class MyController extends Controller{
     public function orasSablonAction() {
         $nume_oras="Cluj";
         
+        $this->addFlash('notice', 'Afisez mesaj redirectare 1 data!');
+        
         $res = $this->render('my/orasSablon.html.twig', 
                 array('oras' => $nume_oras)
                 );
@@ -42,4 +44,6 @@ class MyController extends Controller{
         return $res;
             
     }
+    
+
 }
