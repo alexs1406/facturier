@@ -11,3 +11,7 @@ yaml_route_2_param:
 yaml_route_flasf:
     path:     /flash/{numar}
     defaults: { _controller: AppBundle:Default:flashMsgEx }
+    
+yaml_route_2_orase:
+    path:    /afiseazaParam/{p1}/{p2}
+    defaults: { _controller: AppBundle:My:afiseazaParam,p2: Bucuresti}
