@@ -15,3 +15,7 @@ yaml_route_flasf:
 yaml_route_2_orase:
     path:    /afiseazaParam/{p1}/{p2}
     defaults: { _controller: AppBundle:My:afiseazaParam,p2: Bucuresti}
+    
+yaml_route_number:
+    path:    /test/nr
+    defaults: { _controller: AppBundle:Test:number }
