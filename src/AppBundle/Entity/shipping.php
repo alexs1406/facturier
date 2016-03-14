@@ -5,27 +5,23 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
  
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+ 
 /**
- * Product
  * @ORM\Table()
  * @ORM\Entity
  */
-
-class Product
+class Shipping
 {
 /**
  * @var integer
  * @ORM\Column(name="id", type="integer")
  * @ORM\Id
- * @ORM\GeneratedValue(strategy="AUTO")
- * 
+ * @ORM\GeneratedValue()
  */
 private $id;
-
 /**
  * @var string
- * @ORM\OneToOne(targetEntity="Shipping")
+ * @ORM\Column(name="ship_name", type="string")
  */
-private $shipping;
-
+private $shipName;
 }
