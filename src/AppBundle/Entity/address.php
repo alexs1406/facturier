@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="address")
  * @ORM\Entity
- * @UniqueEntity("nume")
  *  
  */
 class Address
@@ -29,7 +28,7 @@ class Address
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Partner", inversedBy="address")
+     * @ORM\ManyToOne(targetEntity="Partner", inversedBy="addresses")
      * 
      */
     private $partner;   

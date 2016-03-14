@@ -29,7 +29,7 @@ class Partner
     /**
      * @var string
      *
-     * @ORM\Column(name="nume", type="string")
+     * @ORM\Column(name="name", type="string")
      * 
      */
     private $name;   
@@ -40,8 +40,25 @@ class Partner
      * @ORM\OneToMany(targetEntity="Address", mappedBy="partner")
      * 
      */
-    private $address; 
+    private $addresses;
     
+    /**
+     *
+     * @var type string;
+     * 
+     * @ORM\Column(name="bank",type="string")
+     */
+    
+    private $bank;
+    
+    /**
+     *
+     * @var type string
+     * 
+     * @ORM\Column(name="iban", type="string")
+     */
+    
+    private $iban;
       /**
      * @var \DateTime
      *
