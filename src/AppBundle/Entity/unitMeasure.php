@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Product
- * @ORM\Table()
+ * @ORM\Table("unit_measure")
  * @ORM\Entity
+ * @UniqueEntity("name")
  */
 
-class Product
+class unitMeasure
 {
 /**
  * @var integer
@@ -24,16 +25,9 @@ private $id;
 /**
  *
  * @var string
- * @ORM\OneToMany(targetEntity="Feature",mappedBy="product")
+ * @ORM\Column(name="name", type="string")
  */
-
-private $features;
-/**
- *
- * @var string
- * @ORM\ManyToOne(targetEntity="unitMeasure")
- */
-private $unitMeasure;
+private $name;
 /**
  *
  * @var \DateTime
@@ -47,4 +41,7 @@ private $datUpd;
 */
 private $datCre;
 
+
 }
+ 
+

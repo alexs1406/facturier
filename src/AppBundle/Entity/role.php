@@ -1,75 +1,68 @@
 <?php
- 
+
 namespace AppBundle\Entity;
- 
+
 use Doctrine\ORM\Mapping as ORM;
- 
+
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
- 
+
 /**
- * Partner
+ * Role
  *
- * @ORM\Table(name="partner")
+ * @ORM\Table()
  * @ORM\Entity
  * @UniqueEntity("name")
- *  
  */
-class Partner
-{
+
+class Role{
     /**
-     * @var integer
      *
+     * @var type integer
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
      */
+    
     private $id;
-    
     /**
+     *
      * @var string
-     *
-     * @ORM\Column(name="name", type="string")
-     * 
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
-    private $name;   
+    private $users;
     
     /**
+     *
      * @var string
-     *
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="partner")
-     * 
+     * @ORM\Column(name="name", type="string") 
      */
-    private $addresses;
+    
+    private $name;
     
     /**
      *
-     * @var type string;
-     * 
-     * @ORM\Column(name="bank",type="string")
+     * @var string
+     * @ORM\Column(name="role", type="string") 
      */
     
-    private $bank;
+    private $role;
     
-    /**
-     *
-     * @var type string
-     * 
-     * @ORM\Column(name="iban", type="string")
-     */
-    
-    private $iban;
     /**
      *
      * @var \DateTime
      * @ORM\Column(name="dat_upd", type="datetime")
      */
+    
     private $datUpd;
+    
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dat_cre", type="datetime")
      */
-     private $datCre;  
- 
+    
+    private $datCre;
+
 }
+ 
+

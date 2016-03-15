@@ -7,11 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Partner
+ * User
  *
  * @ORM\Table()
  * @ORM\Entity
- *  
+ * @UniqueEntity("email")
  */
 
 class User{
@@ -25,9 +25,44 @@ class User{
     
     private $id;
     /**
-     * @ORM\ManyToOne (targetEntity="Address")
+     *
+     * @var string
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="roles")
      */
-    private $address;
+    private $roles;
+    /**
+     *
+     * @var string
+     * @ORM\Column(name="username", type="string")
+     */
+    private $username;
+    /**
+     *
+     * @var string
+     * @ORM\Column(name="email", type="string")
+     */    
+    private $email;
+    /**
+     *
+     * @var string
+     * @ORM\Column(name="password", type="string")
+     */        
+    private $password;
+    
+    /**
+    *
+    * @var \DateTime
+    * @ORM\Column(name="dat_upd", type="datetime")
+    */
+    private $datUpd;
+    /**
+    * @var \DateTime
+    *
+    * @ORM\Column(name="dat_cre", type="datetime")
+    */
+    private $datCre;
+
+    
 }
  
 

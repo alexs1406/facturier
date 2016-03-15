@@ -5,35 +5,26 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
  
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+ 
 /**
- * Product
  * @ORM\Table()
  * @ORM\Entity
+ * @UniqueEntity("name")
  */
-
-class Product
+class Category
 {
 /**
  * @var integer
  * @ORM\Column(name="id", type="integer")
  * @ORM\Id
- * @ORM\GeneratedValue(strategy="AUTO")
- * 
+ * @ORM\GeneratedValue()
  */
 private $id;
 /**
- *
  * @var string
- * @ORM\OneToMany(targetEntity="Feature",mappedBy="product")
+ * @ORM\Column(name="name", type="string")
  */
-
-private $features;
-/**
- *
- * @var string
- * @ORM\ManyToOne(targetEntity="unitMeasure")
- */
-private $unitMeasure;
+private $name;
 /**
  *
  * @var \DateTime
@@ -46,5 +37,4 @@ private $datUpd;
  * @ORM\Column(name="dat_cre", type="datetime")
 */
 private $datCre;
-
 }
