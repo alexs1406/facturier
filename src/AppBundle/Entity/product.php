@@ -24,6 +24,12 @@ private $id;
 /**
  *
  * @var string
+ * @ORM\ManyToMany(targetEntity="Category", inversedBy="products")
+ */
+private $categories;
+/**
+ *
+ * @var string
  * @ORM\OneToMany(targetEntity="Feature",mappedBy="product")
  */
 

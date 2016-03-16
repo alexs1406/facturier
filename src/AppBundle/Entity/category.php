@@ -21,6 +21,12 @@ class Category
  */
 private $id;
 /**
+ *
+ * @var string
+ * @ORM\ManyToMany(targetEntity="Product", mappedBy="categories")
+ */
+private $products;
+/**
  * @var string
  * @ORM\Column(name="name", type="string")
  */
