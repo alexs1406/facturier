@@ -73,7 +73,6 @@ class Address
     private $city;   
 
     /**
-     * @var string
      *
      * @ORM\ManyToOne(targetEntity="Partner", inversedBy="addresses")
      * 

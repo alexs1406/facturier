@@ -6,12 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
  
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
- * Feature
- * @ORM\Table()
+ * @ORM\Table("feature_name")
  * @ORM\Entity
  */
 
-class Feature
+class FeatureName
 {
 /**
  * @var integer
@@ -23,20 +22,10 @@ class Feature
 private $id;
 /**
  *
- * @ORM\OneToOne(targetEntity="FeatureName")
- */
-private $name;
-/**
- *
  * @var string
  * @ORM\Column(name="value", type="string")
  */
 private $value;
-/**
- *
- * @ORM\ManyToOne(targetEntity="Product",inversedBy="features")
- */
-private $product;
 /**
  *
  * @var \DateTime

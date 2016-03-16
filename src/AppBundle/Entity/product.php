@@ -23,23 +23,54 @@ class Product
 private $id;
 /**
  *
- * @var string
  * @ORM\ManyToMany(targetEntity="Category", inversedBy="products")
  */
 private $categories;
 /**
  *
- * @var string
  * @ORM\OneToMany(targetEntity="Feature",mappedBy="product")
  */
 
 private $features;
 /**
  *
- * @var string
+ * @ORM\OneToMany(targetEntity="ProductWarehouse", mappedBy="product")
+ */
+private $productWarehouses;
+/**
+ *
  * @ORM\ManyToOne(targetEntity="unitMeasure")
  */
 private $unitMeasure;
+/**
+ *
+ * @var string
+ * @ORM\Column("manufacturer", type="string")
+ */
+private $manufacturer;
+/**
+ *
+ * @var string
+ * @ORM\Column("reference", type="string")
+ */
+private $reference;
+/**
+ *
+ * @var float
+ * @ORM\Column("sale_price", type="float")
+ */
+private $salePrice;
+/**
+ *
+ * @var string
+ * @ORM\Column("ean", type="string")
+ */
+private $ean;
+/**
+ *
+ * @ORM\ManyToMany(targetEntity="ProductImage", mappedBy="products")
+ */
+private $images;
 /**
  *
  * @var \DateTime
