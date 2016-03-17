@@ -24,12 +24,7 @@ class Role{
      */
     
     private $id;
-    /**
-     *
-     * @var string
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
-     */
-    private $users;
+
     
     /**
      *

@@ -68,7 +68,7 @@ private $salePrice;
 private $ean;
 /**
  *
- * @ORM\ManyToMany(targetEntity="ProductImage", mappedBy="products")
+ * @ORM\ManyToMany(targetEntity="ProductImage", inversedBy="products")
  */
 private $images;
 /**

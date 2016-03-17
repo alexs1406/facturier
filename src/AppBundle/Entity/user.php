@@ -26,11 +26,6 @@ class User{
     private $id;
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="roles")
-     */
-    private $roles;
-    /**
-     *
      * @var string
      * @ORM\Column(name="username", type="string")
      */

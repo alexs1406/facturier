@@ -25,7 +25,7 @@ class ProductImage{
     private $id;
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Product",inversedBy="images")
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="images")
      */
     private $products;
     /**
