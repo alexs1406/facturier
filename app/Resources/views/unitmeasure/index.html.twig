@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block submenu %}
+    <ul class="nav nav-sidebar">
+        <li><a href="{{ path('unitmeasure_new') }}">Add New</a></li>
+        <li><a href="{{ path('unitmeasure_index') }}">List</a></li>
+    </ul>
+{% endblock %}
+{% block body %}
+    <h1>UnitMeasure list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Datcre</th>
+                <th>Datupd</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for unitMeasure in unitMeasures %}
+            <tr>
+                <td><a href="{{ path('unitmeasure_show', { 'id': unitMeasure.id }) }}">{{ unitMeasure.id }}</a></td>
+                <td>{{ unitMeasure.name }}</td>
+                <td>{% if unitMeasure.datCre %}{{ unitMeasure.datCre|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if unitMeasure.datUpd %}{{ unitMeasure.datUpd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('unitmeasure_show', { 'id': unitMeasure.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('unitmeasure_edit', { 'id': unitMeasure.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('unitmeasure_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

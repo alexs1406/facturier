@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>UnitMeasure</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ unitMeasure.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ unitMeasure.name }}</td>
+            </tr>
+            <tr>
+                <th>Datcre</th>
+                <td>{% if unitMeasure.datCre %}{{ unitMeasure.datCre|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datupd</th>
+                <td>{% if unitMeasure.datUpd %}{{ unitMeasure.datUpd|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('unitmeasure_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('unitmeasure_edit', { 'id': unitMeasure.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

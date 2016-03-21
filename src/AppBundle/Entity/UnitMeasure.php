@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * UnitMeasure
@@ -11,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity
  * @UniqueEntity("name")
+ * @ORM\HasLifecycleCallbacks()
  */
 class UnitMeasure
 {
@@ -26,7 +28,7 @@ class UnitMeasure
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;        
     
@@ -89,7 +91,7 @@ class UnitMeasure
 
     /**
      * Set datCre
-     *
+     * @ORM\PrePersist
      * @param \DateTime $datCre
      *
      * @return UnitMeasure
@@ -113,7 +115,8 @@ class UnitMeasure
 
     /**
      * Set datUpd
-     *
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
      * @param \DateTime $datUpd
      *
      * @return UnitMeasure
