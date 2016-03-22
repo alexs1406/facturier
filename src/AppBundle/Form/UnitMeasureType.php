@@ -16,8 +16,8 @@ class UnitMeasureType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('datCre', 'datetime')
-            ->add('datUpd', 'datetime')
+            //->add('datCre', 'datetime')
+            //->add('datUpd', 'datetime')
         ;
     }
     

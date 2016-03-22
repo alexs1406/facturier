@@ -42,6 +42,10 @@ class UnitMeasureController extends Controller
     {
         $unitMeasure = new UnitMeasure();
         $form = $this->createForm('AppBundle\Form\UnitMeasureType', $unitMeasure);
+        /* @facturier
+         * adaug butonul de submit
+         */
+        $form->add('submit', SubmitType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,6 +84,7 @@ class UnitMeasureController extends Controller
     {
         $deleteForm = $this->createDeleteForm($unitMeasure);
         $editForm = $this->createForm('AppBundle\Form\UnitMeasureType', $unitMeasure);
+        $editForm->add('submit', SubmitType::class);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -87,7 +92,7 @@ class UnitMeasureController extends Controller
             $em->persist($unitMeasure);
             $em->flush();
 
-            return $this->redirectToRoute('unitmeasure_edit', array('id' => $unitMeasure->getId()));
+            return $this->redirectToRoute('unitmeasure_show', array('id' => $unitMeasure->getId()));
         }
 
         return $this->render('unitmeasure/edit.html.twig', array(
@@ -127,6 +132,7 @@ class UnitMeasureController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('unitmeasure_delete', array('id' => $unitMeasure->getId())))
             ->setMethod('DELETE')
+            ->add('submit', SubmitType::class)
             ->getForm()
         ;
     }

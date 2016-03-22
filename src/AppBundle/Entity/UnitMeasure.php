@@ -51,7 +51,7 @@ class UnitMeasure
      */
     public function __toString()
     {
-        return $this->name;
+        return (string) $this->getName();
     }   
 
 
@@ -98,7 +98,7 @@ class UnitMeasure
      */
     public function setDatCre($datCre)
     {
-        $this->datCre = $datCre;
+        $this->datCre = new \DateTime();
 
         return $this;
     }
@@ -123,7 +123,7 @@ class UnitMeasure
      */
     public function setDatUpd($datUpd)
     {
-        $this->datUpd = $datUpd;
+        $this->datUpd = new \DateTime();
 
         return $this;
     }
