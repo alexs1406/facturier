@@ -4,7 +4,11 @@ app_featurename:
 
 app_unitmeasure:
     resource: "@AppBundle/Resources/config/routing/unitmeasure.yml"
-    prefix:   /unitmeasure   
+    prefix:   /unitmeasure  
+
+app_warehouse:
+    resource: "@AppBundle/Resources/config/routing/warehouse.yml"
+    prefix:   /warehouse   
 
 yaml_route_raspuns:
     path:     /raspuns/htmlmvc
