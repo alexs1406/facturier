@@ -8,8 +8,16 @@ app_unitmeasure:
 
 app_warehouse:
     resource: "@AppBundle/Resources/config/routing/warehouse.yml"
-    prefix:   /warehouse   
+    prefix:   /warehouse
+    
+app_vatrate:
+    resource: "@AppBundle/Resources/config/routing/vatrate.yml"
+    prefix:   /vatrate 
 
+app_category:
+    resource: "@AppBundle/Resources/config/routing/category.yml"
+    prefix:   /category 
+    
 yaml_route_raspuns:
     path:     /raspuns/htmlmvc
     defaults: { _controller: AppBundle:Default:raspunsHtmlMvc }

@@ -16,35 +16,36 @@
 {% block body %}
     <h1>Warehouses</h1>
 
-<div class="col-lg-4">
-    <div class="table-responsive">   
-        <table class="table table-bordered table-hover record_properties">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ warehouse.id }}</td>
-                </tr>
-                <tr>
-                    <th>Warehouse Name</th>
-                    <td>{{ warehouse.name }}</td>
-                </tr>
-                <tr>
-                    <th>Datcre</th>
-                    <td>{% if warehouse.datCre %}{{ warehouse.datCre|date('Y-m-d H:i:s') }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Datupd</th>
-                    <td>{% if warehouse.datUpd %}{{ warehouse.datUpd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="form-group">
-        {{ form_start(delete_form) }}
-        <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-2">
-           {{ form_widget(delete_form.submit, { 'label': 'Delete', 'attr': {'class': 'btn btn-sm btn-danger'}}) }}
+    <div class="col-lg-4">
+        <div class="table-responsive">   
+            <table class="table table-bordered table-hover record_properties">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ warehouse.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Warehouse Name</th>
+                        <td>{{ warehouse.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Datcre</th>
+                        <td>{% if warehouse.datCre %}{{ warehouse.datCre|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Datupd</th>
+                        <td>{% if warehouse.datUpd %}{{ warehouse.datUpd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        {{ form_end(delete_form) }}
-    </div>      
 
+        <div class="form-group">
+            {{ form_start(delete_form) }}
+            <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-2">
+               {{ form_widget(delete_form.submit, { 'label': 'Delete', 'attr': {'class': 'btn btn-sm btn-danger'}}) }}
+            </div>
+            {{ form_end(delete_form) }}
+        </div>      
+    </div>
 {% endblock %}

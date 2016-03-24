@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * VatRate
@@ -11,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity
  * @UniqueEntity("code")
- * 
+ * @ORM\HasLifecyclecallbacks();
  */
 class VatRate
 {
@@ -47,7 +48,6 @@ class VatRate
     
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="dat_cre", type="datetime")
      */
     private $datCre;
@@ -59,7 +59,9 @@ class VatRate
      */
     private $datUpd;    
       
-
+    public function __toString() {
+        return (string) $this->getEn();
+    }
 
     /**
      * Get id
@@ -145,14 +147,14 @@ class VatRate
 
     /**
      * Set datCre
-     *
+     * @ORM\PrePersist
      * @param \DateTime $datCre
      *
      * @return VatRate
      */
     public function setDatCre($datCre)
     {
-        $this->datCre = $datCre;
+        $this->datCre = new \DateTime();
 
         return $this;
     }
@@ -169,14 +171,15 @@ class VatRate
 
     /**
      * Set datUpd
-     *
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
      * @param \DateTime $datUpd
      *
      * @return VatRate
      */
     public function setDatUpd($datUpd)
     {
-        $this->datUpd = $datUpd;
+        $this->datUpd = new \DateTime();
 
         return $this;
     }
