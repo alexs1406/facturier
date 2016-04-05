@@ -1,0 +1,58 @@
+<?php
+
+namespace AppBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+//use AppBundle\Form\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
+class ProductType extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('nume')
+            ->add('manufacturer')
+            ->add('ean')
+            ->add('reference')
+            ->add('salePrice')
+          //  ->add('datCre', 'datetime')
+          //  ->add('datUpd', 'datetime')
+            ->add('unitMeasure')
+            ->add('categories', EntityType::class, array(
+                'class' => 'AppBundle:Category',
+                'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('c')
+                ->orderBy('c.name', 'ASC');
+            },
+            'multiple' => true,
+            'expanded' => false,
+            ))
+            -> add ('features', CollectionType::class, array(
+        'entry_type'   => FeatureType::class,
+        'allow_add'    => true,
+            ));
+           // ->add('features')
+           // ->add('images')
+        ;
+    }
+    
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Product'
+        ));
+    }
+}

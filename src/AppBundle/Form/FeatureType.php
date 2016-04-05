@@ -6,9 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
-class DocTypeType extends AbstractType
+class FeatureType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,13 +16,11 @@ class DocTypeType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('direction', ChoiceType::class, array(
-                'choices'  => array('Out'  => -1,
-                'In'=>1,
-            )));
+            ->add('value')
             //->add('datCre', 'datetime')
-            //->add('datUpd', 'datetime')
-        ;
+           // ->add('datUpd', 'datetime')
+            //->add('products')
+         ;
     }
     
     /**
@@ -33,7 +29,7 @@ class DocTypeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\DocType'
+            'data_class' => 'AppBundle\Entity\Feature'
         ));
     }
 }

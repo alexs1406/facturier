@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+
 /**
  * Product
  *
@@ -54,7 +55,7 @@ class Product
     
     /**
      * 
-     * @ORM\ManyToMany(targetEntity="Feature", inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="Feature", inversedBy="products", cascade={"persist"})
      * 
      * 
      */
@@ -381,7 +382,7 @@ class Product
      */
     public function addFeature(\AppBundle\Entity\Feature $feature)
     {
-        $this->features[] = $feature;
+        $this->features->add($feature);
 
         return $this;
     }
