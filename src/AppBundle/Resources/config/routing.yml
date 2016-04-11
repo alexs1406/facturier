@@ -1,7 +1,8 @@
 app_feature:
     resource: "@AppBundle/Resources/config/routing/feature.yml"
     prefix:   /feature
-    
+
+ 
 app_product:
     resource: "@AppBundle/Resources/config/routing/product.yml"
     prefix:   /product    
