@@ -103,8 +103,9 @@ class ProductImage
     {
         if (null !== $this->getFile()) {
             // do whatever you want to generate a unique name
+           // $this->path = $this->name . ".";
+           // $this->path .= $this->getFile()->getFilename();
             $this->path = $this->getFile()->guessExtension();
-
         }
     }
     
@@ -177,14 +178,20 @@ class ProductImage
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path;
+            : $this->getUploadDir().'/'. $this->id . '.'. $this->path;
     }
 
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
+       // $bPath = __DIR__.'/../../../web/';
+
+        
+        
+       //return __DIR__.'/../../../web/'.$this->getUploadDir();
+       // return $bPath .$this->getUploadDir();
+        return $_SERVER["DOCUMENT_ROOT"] . $this->getUploadDir();
     }
 
     protected function getUploadDir()
