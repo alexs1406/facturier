@@ -44,10 +44,10 @@ class DocumentType extends AbstractType
                 'placeholder'=>'Choose a payment type',
             ))
             //->add('user')
-            ->add('docStatus', EntityType::class, array(
-                'class'=>'AppBundle:DocStatus',
-                'translation_domain'=>'AppBundle',
-                'placeholder'=>'Choose a document status',
+            ->add('docStatus')
+            ->add('warehouse', EntityType::class, array(
+                'class'=>'AppBundle:Warehouse',
+                'mapped'=>false,
             ))
             ->add('documentLines', CollectionType::class, array(
                 'entry_type'   => DocumentLineType::class,
