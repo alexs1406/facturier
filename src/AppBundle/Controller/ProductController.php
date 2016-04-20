@@ -97,12 +97,19 @@ class ProductController extends Controller
         // Create an ArrayCollection of the current Tag objects in the database
         foreach ($product->getImages() as $image) {
            $origImages->add($image);
-        }     
+        }
+        
+        $origProductFeatures = new ArrayCollection();
+        
+        foreach ($product->getFeatures() as $feature)
+        {
+            $origProductFeatures->add($feature);
+        }
     
         //$deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
         $editForm->add('submit', SubmitType::class, array(
-            'label'=>'Edit',
+            'label'=>'Save',
             'attr'=>array(
                 'class'=>'btn btn-succes'
             ),
@@ -114,12 +121,16 @@ class ProductController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             
-            // remove the relationship between the tag and the Task
+            
             foreach ($origImages as $image) {
                 if (false === $product->getImages()->contains($image)) {
 
                     $em->remove($image);
                 }
+            }
+            
+            foreach ($origProductFeatures as $feature) {
+                $em->remove($feature);
             }
             
             $em->persist($product);

@@ -49,15 +49,15 @@ class DocumentController extends Controller
         $document->setCreatedBy($user);   
         
 /**********************************date ce vor fi completate pe factura*******************************/                       
-       $produse = array(
+   /*    $produse = array(
 				array('nume_prod' =>'pc - pentium', 'um'=>'buc', 'cant'=>'1','pret'=>'557.22'),
 				array('nume_prod' =>'placa de baza', 'um'=>'buc', 'cant'=>'4','pret'=>'600'),
 				array('nume_prod' =>'placa video', 'um'=>'buc', 'cant'=>'23','pret'=>'330'),
 				array('nume_prod' =>'placa audio', 'um'=>'buc', 'cant'=>'13','pret'=>'120'),
 				array('nume_prod' =>'monitor', 'um'=>'buc', 'cant'=>'33','pret'=>'630'),
-				);	
+				);	*/
         // date client				
-        $client = array(
+      $client = array(
 				'nume_client'	=>'S.C. VIFOR S.R.L.',
 				'reg_com'	 	=>'J40/343434/2003',
 				'cui'	 		=>'RO17083320',
@@ -104,7 +104,7 @@ class DocumentController extends Controller
 				'adresa'		=>'Str. Florilor nr.1 Sector 1, Bucuresti',
 				);	
 /**********************************end date ce vor fi completate pe factura*******************************/            
-       $this->generatePdfDoc($produse,$client,$furnizor,$date_factura, $notice,$delegat,$chitanta);        
+        
         
         $form->add('submit', SubmitType::class, array(
             'label'=>'Create',
@@ -119,16 +119,86 @@ class DocumentController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
-           // $wh = $form->get('warehouse')->getData();
+            if ($data->getDocNumber())
+            {
+                $date_factura['seria']='ZZ';
+                $date_factura['numarul']=$data->getDocNumber();
+                $date_factura['data']=$today->format('d.m.Y');
+                // setez data scadenta a facturii la 15 zile de la data submiterii formularului
+                $dataScadenta=$today->add(new \DateInterval('P15D'));
+                $date_factura['scadenta']=$dataScadenta->format('d.m.Y');
+               // $ts = mktime(date('H'), date('i'), date('s'), date('n'), date('j') + 15, date('Y'));
+               // $date_factura['scadenta']=date('d.m.Y', $ts);
+                $date_factura['aviz']='';
+                
+            }
+            if ($data->getDoctype()->getDirection()===1)
+            {
+                $client['nume_client']='S.C. Firma noastra';
+                $client['reg_com']='J40/100000/2015';
+                $client['cui']='RO17083320';
+                $client['adresa']='Str. Nerva Traian nr. 5, Sector 3, Bucuresti';
+                $client['cont']='RO45 RZBR 2323 2323 2323 2323';
+                $client['banca']='Raiffeissen Bank';
+                
+                $furnizor['nume_furnizor']=$data->getPartner()->getName();
+                $furnizor['reg_com']='J40/100000/2015';
+                $furnizor['cui']='RO17083320';
+                //$furnizor['adresa']='Str. Nerva Traian nr. 5, Sector 3, Bucuresti';
+                $furnizor['adresa']=$data->getPartner()->getAddresses()[0];
+                $furnizor['cont']=$data->getPartner()->getIban();
+                $furnizor['banca']=$data->getPartner()->getBank();
+                
+                $chitanta['nume_client']='S.C. Firma noastra';
+                $chitanta['reg_com']='J40/100000/2015';
+                $chitanta['cui']='RO17083320';
+                $chitanta['adresa']='Str. Nerva Traian nr. 5, Sector 3, Bucuresti';
+                $chitanta['cont']='RO45 RZBR 2323 2323 2323 2323';
+                $chitanta['banca']='Raiffeissen Bank';	 
+            }else{
+                $furnizor['nume_furnizor']='S.C. Firma noastra';
+                $furnizor['reg_com']='J40/100000/2015';
+                $furnizor['cui']='RO17083320';
+                $furnizor['adresa']='Str. Nerva Traian nr. 5, Sector 3, Bucuresti';
+                $furnizor['cont']='RO45 RZBR 2323 2323 2323 2323';
+                $furnizor['banca']='Raiffeissen Bank';
+                
+                $client['nume_client']=$data->getPartner()->getName();
+                $client['reg_com']='J40/100000/2015';
+                $client['cui']='RO17083320';
+                $client['adresa']=$data->getPartner()->getAddresses()[0];
+                $client['cont']=$data->getPartner()->getIban();
+                $client['banca']=$data->getPartner()->getBank();
+                
+                $chitanta['nume_client']=$data->getPartner()->getName();
+                $chitanta['reg_com']='J40/100000/2015';
+                $chitanta['cui']='RO17083320';
+                $chitanta['adresa']='Str. Nerva Traian nr. 5, Sector 3, Bucuresti';
+                $chitanta['cont']=$data->getPartner()->getIban();
+                $chitanta['banca']=$data->getPartner()->getBank();	                
+                
+            }
+            
+            
+            $i=0;
             foreach ($data->getDocumentLines() as $dl) {
+                
+                $produse[$i]['nume_prod']=$dl->getProduct()->getNume();
+                $produse[$i]['um']=$dl->getProduct()->getUnitMeasure();
+                $produse[$i]['cant']=$dl->getQuantity();  
+                $produse[$i]['pret']=$dl->getProduct()->getSalePrice();    
+                        
+                        
+                        
                if( $pd = $em->getRepository('AppBundle:ProductWarehouse')->findOneBy(
                     array('product'=>$dl->getProduct(), 'warehouse'=>$form->get('warehouse')->getData(),
                         )
                     )){
                    $pd->setQuantity($pd->getQuantity()+$dl->getQuantity()*$data->getDocType()->getDirection());
                }
+               $i++;
             }
-            
+            $this->generatePdfDoc($produse,$client,$furnizor,$date_factura, $notice,$delegat,$chitanta);
             $em->persist($document);
             $em->flush();
 
