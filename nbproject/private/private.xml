@@ -3,6 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/web/proiecte/facturier/app/Resources/views/product/new.html.twig</file>
+            <file>file:/D:/web/proiecte/facturier/app/Resources/views/product/edit.html.twig</file>
+            <file>file:/D:/web/proiecte/facturier/src/AppBundle/Controller/ProductController.php</file>
+            <file>file:/D:/web/proiecte/facturier/src/AppBundle/Form/ProductType.php</file>
+            <file>file:/D:/web/proiecte/facturier/src/AppBundle/Form/FeatureType.php</file>
+            <file>file:/D:/web/proiecte/facturier/app/Resources/views/base.html.twig</file>
             <file>file:/D:/web/proiecte/facturier/src/AppBundle/Controller/DocumentController.php</file>
         </group>
     </open-files>

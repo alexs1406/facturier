@@ -16,15 +16,17 @@ class FeatureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('value', TextType::class, array(
+/*            ->add('name', TextType::class, array(
+              'translation_domain'=>'AppBundle',
+          ))         */
+                ->add('name') 
+                ->add('value', TextType::class, array(
                 'translation_domain'=>'AppBundle',
             ))
           //  ->add('datCre', 'datetime')
             //->add('datUpd', 'datetime')
             //->add('products')
-            ->add('name', TextType::class, array(
-              'translation_domain'=>'AppBundle',
-          ))
+
         ;
     }
     
