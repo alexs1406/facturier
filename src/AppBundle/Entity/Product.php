@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+
 /**
  * Product
  *
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * 
  * @UniqueEntity("reference")
  * @UniqueEntity("ean")
- * 
+ * @ORM\HasLifecycleCallbacks()
  * 
  */
 class Product
@@ -39,6 +40,14 @@ class Product
     
     /**
      * 
+     * @ORM\OneToMany(targetEntity="ProductLang", mappedBy="product", cascade={"persist"})
+     * 
+     * 
+     */
+    private $productLangs;         
+    
+    /**
+     * 
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="products")
      * 
      */
@@ -46,15 +55,14 @@ class Product
     
     /**
      * 
-     * @ORM\ManyToMany(targetEntity="Feature", inversedBy="products")
-     * 
+     * @ORM\ManyToMany(targetEntity="Feature", inversedBy="products", cascade={"persist"})
      * 
      */
     private $features;  
     
     /**
      * 
-     * @ORM\ManyToMany(targetEntity="ProductImage", mappedBy="products")
+     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product", cascade={"persist"}))
      * 
      * 
      */
@@ -124,10 +132,11 @@ class Product
      */
     public function __construct()
     {
+        $this->features = new ArrayCollection();
+        $this->productLangs = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->features = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->productWarehouses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->productWarehouses = new ArrayCollection();
     }
 
     /**
@@ -150,10 +159,9 @@ class Product
     public function setManufacturer($manufacturer)
     {
         $this->manufacturer = $manufacturer;
-
         return $this;
     }
-
+    
     /**
      * Get manufacturer
      *
@@ -174,7 +182,6 @@ class Product
     public function setEan($ean)
     {
         $this->ean = $ean;
-
         return $this;
     }
 
@@ -238,14 +245,14 @@ class Product
 
     /**
      * Set datCre
-     *
+     * @ORM\PrePersist
      * @param \DateTime $datCre
      *
      * @return Product
      */
-    public function setDatCre($datCre)
+    public function setDatCre()
     {
-        $this->datCre = $datCre;
+        $this->datCre = new \DateTime();
 
         return $this;
     }
@@ -262,14 +269,15 @@ class Product
 
     /**
      * Set datUpd
-     *
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
      * @param \DateTime $datUpd
      *
      * @return Product
      */
-    public function setDatUpd($datUpd)
+    public function setDatUpd()
     {
-        $this->datUpd = $datUpd;
+        $this->datUpd = new \DateTime();
 
         return $this;
     }
@@ -351,7 +359,7 @@ class Product
      */
     public function addFeature(\AppBundle\Entity\Feature $feature)
     {
-        $this->features[] = $feature;
+        $this->features->add($feature);
 
         return $this;
     }
@@ -385,9 +393,11 @@ class Product
      */
     public function addImage(\AppBundle\Entity\ProductImage $image)
     {
-        $this->images[] = $image;
+        
+        $image->setProduct($this);
+        
+        $this->images->add($image);
 
-        return $this;
     }
 
     /**
@@ -442,5 +452,39 @@ class Product
     public function getProductWarehouses()
     {
         return $this->productWarehouses;
+    }
+
+    /**
+     * Add productLang
+     *
+     * @param \AppBundle\Entity\ProductLang $productLang
+     *
+     * @return Product
+     */
+    public function addProductLang(\AppBundle\Entity\ProductLang $productLang)
+    {
+        $productLang->setProduct($this);
+        
+        $this->productLangs->add($productLang);
+    }
+
+    /**
+     * Remove productLang
+     *
+     * @param \AppBundle\Entity\ProductLang $productLang
+     */
+    public function removeProductLang(\AppBundle\Entity\ProductLang $productLang)
+    {
+        $this->productLangs->removeElement($productLang);
+    }
+
+    /**
+     * Get productLangs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductLangs()
+    {
+        return $this->productLangs;
     }
 }

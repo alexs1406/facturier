@@ -1,0 +1,22 @@
+csvfiles_index:
+    path:     /
+    defaults: { _controller: "AppBundle:CsvFiles:index" }
+    methods:  GET
+
+csvfiles_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:CsvFiles:new" }
+    methods:  [GET, POST]
+    
+csvfiles_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:CsvFiles:create" }
+    requirements: { _method: post }    
+
+csvfiles_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:CsvFiles:delete" }
+    
+csvfiles_importa:
+    path:     /{id}/{tip}/importa
+    defaults: { _controller: "AppBundle:CsvFiles:importa" }       

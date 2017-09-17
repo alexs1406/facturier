@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @ORM\Table()
  * @ORM\Entity
- * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Feature
 {
@@ -44,23 +44,23 @@ class Feature
     /**
      * @var string
      *
-     * @ORM\Column(name="f_value", type="string", nullable=true)
+     * @ORM\Column(name="en", type="string", nullable=true)
      */
-    private $value;
+    private $en;         
     
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="dat_cre", type="datetime")
+     * @ORM\Column(name="ro", type="string", nullable=true)
      */
-    private $datCre;
-
-    /**
-     * @var \DateTime
+    private $ro;       
+    
+     /**
+     * @var string
      *
-     * @ORM\Column(name="dat_upd", type="datetime")
+     * @ORM\Column(name="bg", type="string", nullable=true)
      */
-    private $datUpd;     
+    private $bg;   
     
     /**
      * 
@@ -114,14 +114,14 @@ class Feature
 
     /**
      * Set datCre
-     *
+     * @ORM\PrePersist
      * @param \DateTime $datCre
      *
      * @return Feature
      */
     public function setDatCre($datCre)
     {
-        $this->datCre = $datCre;
+        $this->datCre = new \DateTime();
 
         return $this;
     }
@@ -138,14 +138,15 @@ class Feature
 
     /**
      * Set datUpd
-     *
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
      * @param \DateTime $datUpd
      *
      * @return Feature
      */
     public function setDatUpd($datUpd)
     {
-        $this->datUpd = $datUpd;
+        $this->datUpd = new \DateTime();
 
         return $this;
     }
@@ -216,5 +217,77 @@ class Feature
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set en
+     *
+     * @param string $en
+     *
+     * @return Feature
+     */
+    public function setEn($en)
+    {
+        $this->en = $en;
+
+        return $this;
+    }
+
+    /**
+     * Get en
+     *
+     * @return string
+     */
+    public function getEn()
+    {
+        return $this->en;
+    }
+
+    /**
+     * Set ro
+     *
+     * @param string $ro
+     *
+     * @return Feature
+     */
+    public function setRo($ro)
+    {
+        $this->ro = $ro;
+
+        return $this;
+    }
+
+    /**
+     * Get ro
+     *
+     * @return string
+     */
+    public function getRo()
+    {
+        return $this->ro;
+    }
+
+    /**
+     * Set bg
+     *
+     * @param string $bg
+     *
+     * @return Feature
+     */
+    public function setBg($bg)
+    {
+        $this->bg = $bg;
+
+        return $this;
+    }
+
+    /**
+     * Get bg
+     *
+     * @return string
+     */
+    public function getBg()
+    {
+        return $this->bg;
     }
 }

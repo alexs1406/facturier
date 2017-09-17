@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * DocType
@@ -11,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity
  * @UniqueEntity("name")
+ * @ORM\HasLifecycleCallbacks()
  */
 class DocType
 {
@@ -33,11 +35,16 @@ class DocType
     
     /**
      * @var integer
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^[-1]|[1]$/",
+     *     match=true,
+     *     message="Direction value allow 1 and -1"
+     * )
      *
      * @ORM\Column(name="direction", type="integer")
      */
     private $direction;        
-          
     
     /**
      * @var \DateTime
@@ -60,7 +67,6 @@ class DocType
     {
         return $this->name;
     }      
-
 
     /**
      * Get id
@@ -122,14 +128,14 @@ class DocType
 
     /**
      * Set datCre
-     *
+     * @ORM\PrePersist
      * @param \DateTime $datCre
      *
      * @return DocType
      */
     public function setDatCre($datCre)
     {
-        $this->datCre = $datCre;
+        $this->datCre = new \DateTime();
 
         return $this;
     }
@@ -146,14 +152,15 @@ class DocType
 
     /**
      * Set datUpd
-     *
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
      * @param \DateTime $datUpd
      *
      * @return DocType
      */
     public function setDatUpd($datUpd)
     {
-        $this->datUpd = $datUpd;
+        $this->datUpd = new \DateTime();
 
         return $this;
     }
